@@ -1,0 +1,47 @@
+function idBestUsers(...arrays) {
+  const combinedArray = arrays.reduce((acc, array) => acc.concat(array), []);
+  const counts = {};
+
+  const arraySets = arrays.map((arr) => new Set(arr));
+
+  for (const string of combinedArray) {
+    if (arraySets.every((set) => set.has(string))) {
+      counts[string] = (counts[string] || 0) + 1;
+    }
+  }
+
+  const countStringPairs = Object.entries(counts).map(([string, count]) => [count, string]);
+
+  countStringPairs.sort((a, b) => {
+    if (a[0] === b[0]) {
+      return a[1].localeCompare(b[1]);
+    }
+    return b[0] - a[0];
+  });
+
+  const result = countStringPairs.reduce((acc, [count, string]) => {
+    const existingGroup = acc.find((group) => group[0] === count);
+
+    if (existingGroup) {
+      existingGroup[1].push(string);
+    } else {
+      acc.push([count, [string]]);
+    }
+
+    return acc;
+  }, []);
+
+  return result;
+}
+
+// Example usage with 7 arrays:
+const array1 = ["apple", "banana", "cherry", "date"];
+const array2 = ["banana", "cherry", "date", "elderberry"];
+const array3 = ["cherry", "date", "elderberry", "fig"];
+const array4 = ["date", "elderberry", "fig", "grape"];
+const array5 = ["elderberry", "fig", "grape", "honeydew"];
+const array6 = ["fig", "grape", "honeydew", "kiwi"];
+const array7 = ["grape", "honeydew", "kiwi", "lemon"];
+
+const result = idBestUsers(array1, array2, array3, array4, array5, array6, array7);
+console.log(result);
