@@ -33,15 +33,28 @@ function idBestUsers(...arrays) {
 
   return result;
 }
+//
+from collections import defaultdict
 
-// Example usage with 7 arrays:
-const array1 = ["apple", "banana", "cherry", "date"];
-const array2 = ["banana", "cherry", "date", "elderberry"];
-const array3 = ["cherry", "date", "elderberry", "fig"];
-const array4 = ["date", "elderberry", "fig", "grape"];
-const array5 = ["elderberry", "fig", "grape", "honeydew"];
-const array6 = ["fig", "grape", "honeydew", "kiwi"];
-const array7 = ["grape", "honeydew", "kiwi", "lemon"];
+def id_best_users(*arrays):
+    combined_array = sum(arrays, [])
+    counts = defaultdict(int)
+    array_sets = [set(arr) for arr in arrays]
 
-const result = idBestUsers(array1, array2, array3, array4, array5, array6, array7);
-console.log(result);
+    for string in combined_array:
+        if all(string in s for s in array_sets):
+            counts[string] += 1
+
+    count_string_pairs = [(count, string) for string, count in counts.items()]
+    count_string_pairs.sort(key=lambda x: (-x[0], x[1]))
+
+    result = []
+    for count, string in count_string_pairs:
+        existing_group = next((group for group in result if group[0] == count), None)
+        if existing_group:
+            existing_group[1].append(string)
+        else:
+            result.append([count, [string]])
+
+    return result
+
