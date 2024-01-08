@@ -44,3 +44,39 @@ function decomp(n) {
 
   return result.slice(0, -2); // Remove the trailing " *"
 }
+//
+def is_prime(num):
+    if num <= 1:
+        return False
+    if num <= 3:
+        return True
+    if num % 2 == 0 or num % 3 == 0:
+        return False
+
+    i = 5
+    while i * i <= num:
+        if num % i == 0 or num % (i + 2) == 0:
+            return False
+        i += 6
+
+    return True
+
+def count_factors(num, prime):
+    count = 0
+    while num > 0:
+        num //= prime
+        count += num
+    return count
+
+def decomp(n):
+    primes = []
+    factors = {}
+
+    for i in range(2, n + 1):
+        if is_prime(i):
+            primes.append(i)
+            factors[i] = count_factors(n, i)
+
+    result = ''.join([f"{prime}^{factors[prime]} * " if factors[prime] != 1 else f"{prime} * " for prime in primes]).strip()
+    return result[:-2]  # Remove the trailing " * "
+
