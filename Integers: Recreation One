@@ -26,3 +26,61 @@ function getDivisorsSquaredSum(num) {
 
  return divisors.reduce((sum, divisor) => sum + divisor * divisor, 0);
 }
+
+//
+
+def list_squared(m, n):
+ """
+ Finds numbers from m to n whose sum of squared divisors is a square.
+
+ Args:
+   m: The lower bound of the range (inclusive).
+   n: The upper bound of the range (inclusive).
+
+ Returns:
+   A list of subarrays, where each subarray contains:
+     - The number whose sum of squared divisors is a square.
+     - The sum of squared divisors of the number.
+ """
+
+ result = []
+
+ for num in range(m, n + 1):
+   divisors_squared_sum = get_divisors_squared_sum(num)
+   if perfect_square(divisors_squared_sum):
+     result.append([num, divisors_squared_sum])
+
+ return result
+
+def get_divisors_squared_sum(num):
+ """
+ Calculates the sum of squared divisors of a number.
+
+ Args:
+   num: The number to find the sum of squared divisors for.
+
+ Returns:
+   The sum of squared divisors of the number.
+ """
+
+ divisors = []
+ for i in range(1, int(num**0.5) + 1):
+   if num % i == 0:
+     divisors.append(i)
+     if i * i != num:
+       divisors.append(num // i)
+
+ return sum(d * d for d in divisors)
+
+def perfect_square(num):
+ """
+ Checks if a number is a perfect square.
+
+ Args:
+   num: The number to check.
+
+ Returns:
+   True if the number is a perfect square, False otherwise.
+ """
+
+ return num == int(num**0.5)**2
