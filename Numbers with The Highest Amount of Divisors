@@ -1,0 +1,45 @@
+function countDivisors(num) {
+  let count = 0;
+  for (let i = 1; i <= num; i++) {
+    if (num % i === 0) {
+      count++;
+    }
+  }
+  return count;
+}
+
+function isPrime(num) {
+  if (num <= 1) return false;
+  for (let i = 2; i <= Math.sqrt(num); i++) {
+    if (num % i === 0) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function procArrInt(listNum) {
+  let x = 0; // count of all numbers
+  let y = 0; // count of prime numbers
+  let maxDivisors = 0;
+  let numbersWithMaxDivisors = [];
+
+  for (let i = 0; i < listNum.length; i++) {
+    x++;
+    if (isPrime(listNum[i])) {
+      y++;
+    }
+
+    const numDivisors = countDivisors(listNum[i]);
+    if (numDivisors > maxDivisors) {
+      maxDivisors = numDivisors;
+      numbersWithMaxDivisors = [listNum[i]];
+    } else if (numDivisors === maxDivisors) {
+      numbersWithMaxDivisors.push(listNum[i]);
+    }
+  }
+
+  numbersWithMaxDivisors.sort((a, b) => a - b);
+
+  return [x, y, [maxDivisors, numbersWithMaxDivisors]];
+}
