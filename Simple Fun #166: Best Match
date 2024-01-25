@@ -18,3 +18,23 @@ function bestMatch(ALAHLYGoals, zamalekGoals) {
 
  return bestIndex;
 }
+
+//
+
+def best_match(ALAHLYGoals, zamalekGoals):
+    min_diff = float('inf')  # Initialize with positive infinity
+    best_index = -1
+    best_zam_goal = -1
+
+    for i in range(len(ALAHLYGoals)):
+        diff = abs(ALAHLYGoals[i] - zamalekGoals[i])
+
+        if diff < min_diff:
+            min_diff = diff
+            best_index = i
+            best_zam_goal = zamalekGoals[i]
+        elif diff == min_diff and zamalekGoals[i] > best_zam_goal:
+            best_index = i
+            best_zam_goal = zamalekGoals[i]
+
+    return best_index
