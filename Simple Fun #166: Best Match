@@ -1,0 +1,20 @@
+function bestMatch(ALAHLYGoals, zamalekGoals) {
+ let minDiff = Infinity;
+ let bestIndex = -1;
+ let bestZamGoal = -1;
+
+ for (let i = 0; i < ALAHLYGoals.length; i++) {
+   const diff = Math.abs(ALAHLYGoals[i] - zamalekGoals[i]);
+
+   if (diff < minDiff) {
+     minDiff = diff;
+     bestIndex = i;
+     bestZamGoal = zamalekGoals[i];
+   } else if (diff === minDiff && zamalekGoals[i] > bestZamGoal) {
+     bestIndex = i;
+     bestZamGoal = zamalekGoals[i];
+   }
+ }
+
+ return bestIndex;
+}
