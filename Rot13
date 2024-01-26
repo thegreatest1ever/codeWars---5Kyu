@@ -1,0 +1,13 @@
+function rot13(message) {
+  // Create a translation table for efficient character replacement
+  const translationTable = {};
+  const alphabet = "abcdefghijklmnopqrstuvwxyz";
+  const shiftedAlphabet = alphabet.slice(13) + alphabet.slice(0, 13);
+  for (let i = 0; i < alphabet.length; i++) {
+    translationTable[alphabet[i]] = shiftedAlphabet[i];
+    translationTable[alphabet[i].toUpperCase()] = shiftedAlphabet[i].toUpperCase();
+  }
+
+  // Apply ROT13 to each character using the translation table
+  return message.split("").map(char => translationTable[char] || char).join("");
+}
