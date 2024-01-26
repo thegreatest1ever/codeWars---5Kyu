@@ -11,3 +11,13 @@ function rot13(message) {
   // Apply ROT13 to each character using the translation table
   return message.split("").map(char => translationTable[char] || char).join("");
 }
+//
+def rot13(message):
+    # Create a translation table for efficient character replacement
+    translation_table = str.maketrans(
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+        "nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM"
+    )
+    
+    # Apply ROT13 to the message using the translation table
+    return message.translate(translation_table)
