@@ -1,0 +1,13 @@
+function removeNb(n) {
+    let sum = n * (n + 1) / 2; // Sum of numbers from 1 to n
+    const result = [];
+    
+    for (let a = 1; a <= n; a++) {
+        let b = (sum - a) / (a + 1); // Calculate b using sum and a
+        if (b <= n && Number.isInteger(b)) {
+            result.push([a, b]);
+        }
+    }
+    
+    return result;
+}
