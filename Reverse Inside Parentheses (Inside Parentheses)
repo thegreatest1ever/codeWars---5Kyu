@@ -1,0 +1,17 @@
+const reverseInParens = str => {
+	for (let i = 0; i < str.length; i++) {
+		if (str[i] == '(') {
+			let k = i, balance = 1;
+			while ((++k < str.length) && (balance > 0)) {
+				if (str[k] == '(') balance++;
+				if (str[k] == ')') balance--;
+			}
+			if (balance != 0) break;
+			let sub = str.slice(i + 1, k - 1).split('').reverse().join('');
+			sub = sub.replace(/[()]/g, x => x == '(' ? ')' : '(');
+			str = str.slice(0, i + 1) + reverseInParens(sub) + str.slice(k - 1);
+			i = k - 1;
+		}
+	}
+	return str;
+}
