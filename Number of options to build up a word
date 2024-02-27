@@ -1,0 +1,27 @@
+function getOptionsCount(target, arr) {
+    const memo = {};
+
+    function countConstruct(target) {
+        if (target in memo) return memo[target];
+        if (target === '') return 1;
+
+        let totalCount = 0;
+
+        for (let word of arr) {
+            if (target.startsWith(word)) {
+                const suffix = target.slice(word.length);
+                totalCount += countConstruct(suffix);
+            }
+        }
+
+        memo[target] = totalCount;
+        return totalCount;
+    }
+
+    return countConstruct(target);
+}
+
+// Example usage:
+const targetWord = "abcdef";
+const arr = ["ab", "abc", "cd", "def", "abcd", "ef"];
+console.log(getOptionsCount(targetWord, arr)); // Output: 2
