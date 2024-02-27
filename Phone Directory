@@ -1,0 +1,28 @@
+function phone(strng, num) {
+    const entries = strng.split("\n");
+    let result = [];
+
+    for (let entry of entries) {
+        if (entry.includes(num)) {
+            const nameMatch = entry.match(/<([^>]+)>/);
+            const name = nameMatch ? nameMatch[1] : "";
+            let address = entry.replace(num, "").replace(`<${name}>`, "").replace(/[^a-zA-Z0-9\s\-.]/g, '').trim();
+            
+            // Add space before each capital letter if preceded by a lowercase letter
+            address = address.replace(/([a-z])([A-Z])/g, '$1 $2');
+
+            // Replace consecutive spaces with a single space
+            address = address.replace(/\s+/g, ' ').trim();
+
+            result.push(`Phone => ${num}, Name => ${name}, Address => ${address}`);
+        }
+    }
+
+    if (result.length === 0) {
+        return `Error => Not found: ${num}`;
+    } else if (result.length > 1) {
+        return `Error => Too many people: ${num}`;
+    } else {
+        return result[0];
+    }
+}
