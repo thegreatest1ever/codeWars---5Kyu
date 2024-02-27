@@ -21,7 +21,25 @@ function getOptionsCount(target, arr) {
     return countConstruct(target);
 }
 
-// Example usage:
-const targetWord = "abcdef";
-const arr = ["ab", "abc", "cd", "def", "abcd", "ef"];
-console.log(getOptionsCount(targetWord, arr)); // Output: 2
+//
+
+def get_options_count(target, arr):
+    memo = {}
+
+    def count_construct(target):
+        if target in memo:
+            return memo[target]
+        if target == '':
+            return 1
+
+        total_count = 0
+
+        for word in arr:
+            if target.startswith(word):
+                suffix = target[len(word):]
+                total_count += count_construct(suffix)
+
+        memo[target] = total_count
+        return total_count
+
+    return count_construct(target)
