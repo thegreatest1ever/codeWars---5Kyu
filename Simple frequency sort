@@ -1,0 +1,24 @@
+function solve(arr) {
+  // Create a map to store element frequencies.
+  const frequencyMap = new Map();
+  for (const num of arr) {
+    frequencyMap.set(num, (frequencyMap.get(num) || 0) + 1);
+  }
+
+  // Sort elements based on frequency (descending) and value (ascending).
+  const sortedElements = [...frequencyMap.entries()]
+    .sort((a, b) => (b[1] - a[1]) || (a[0] - b[0]));
+
+  // Create the result array with initial capacity for efficiency.
+  const result = new Array(arr.length);
+
+  // Fill the result array based on frequencies.
+  let index = 0;
+  for (const [element, frequency] of sortedElements) {
+    for (let i = 0; i < frequency; i++) {
+      result[index++] = element;
+    }
+  }
+
+  return result;
+}
