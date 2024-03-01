@@ -22,3 +22,22 @@ function solve(arr) {
 
   return result;
 }
+//
+
+def solve(arr):
+    # Create a dictionary to store element frequencies.
+    frequency_map = {}
+    for num in arr:
+        frequency_map[num] = frequency_map.get(num, 0) + 1
+
+    # Sort elements based on frequency (descending) and value (ascending).
+    sorted_elements = sorted(frequency_map.items(), key=lambda x: (-x[1], x[0]))
+
+    # Create the result list.
+    result = []
+
+    # Fill the result list based on frequencies.
+    for element, frequency in sorted_elements:
+        result.extend([element] * frequency)
+
+    return result
