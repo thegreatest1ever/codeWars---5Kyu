@@ -1,0 +1,2 @@
+const getHashtags = post =>
+  post.match(/(?<=\B#+)[a-z]+(?=\s|$)/gi) || [];
