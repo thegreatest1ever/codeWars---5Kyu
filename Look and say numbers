@@ -1,0 +1,24 @@
+function lookAndSay(data, len) {
+    let newData = [data];
+
+    for (let i = 0; i < len; i++) {
+        let current = newData[i][0];
+        let count = 1;
+        let transformedData = '';
+
+        for (let j = 1; j < newData[i].length; j++) {
+            if (newData[i][j] === current) {
+                count++;
+            } else {
+                transformedData += count + current;
+                current = newData[i][j];
+                count = 1;
+            }
+        }
+
+        transformedData += count + current;
+        newData.push(transformedData);
+    }
+
+    return newData.slice(1);
+}
