@@ -33,3 +33,30 @@ function hamsterMe(code, message) {
 
     return finalMessage;
 }
+//
+def hamster_me(code, message):
+    # Initialize alphabet list
+    alphabet = list('abcdefghijklmnopqrstuvwxyz')
+
+    # Remove duplicates from code
+    code = list(set(code))
+
+    # Make the 2D codeMap
+    code_map = []
+    for c in code:
+        tmp = [c]
+        next_char = alphabet[alphabet.index(c) + 1] if alphabet.index(c) + 1 < len(alphabet) else 'a'
+        while next_char not in code:
+            tmp.append(next_char)
+            next_char = alphabet[alphabet.index(next_char) + 1] if alphabet.index(next_char) + 1 < len(alphabet) else 'a'
+        code_map.append(tmp)
+
+    # Create the final message
+    final_message = ''
+    for m in message:
+        for c in code_map:
+            if m in c:
+                final_message += f"{c[0]}{c.index(m) + 1}"
+                break
+
+    return final_message
