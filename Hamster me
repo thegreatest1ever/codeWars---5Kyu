@@ -1,0 +1,35 @@
+function hamsterMe(code, message) {
+    // Initialize alphabet array
+    const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+
+    // Remove duplicates from code
+    code = [...new Set(code.split(''))]
+
+    // Make the 2d codeMap
+    let codeMap = []
+    for(const c of code){
+        let tmp = [c]
+        let nextChar = alphabet[alphabet.indexOf(c) + 1]
+        nextChar = nextChar ? nextChar : 'a'
+        while(!code.includes(nextChar)) {
+            tmp.push(nextChar)
+            nextChar = alphabet[alphabet.indexOf(nextChar) + 1]
+            nextChar = nextChar ? nextChar : 'a'
+        }
+        codeMap.push(tmp)
+    }
+
+    // create the final message
+    let finalMessage = ''
+    message = message.split('')
+    for(const m of message){
+        for(const c of codeMap){
+            if(c.includes(m)){
+                finalMessage += `${c[0]}${c.indexOf(m) + 1}`
+                break
+            }
+        }
+    }
+
+    return finalMessage;
+}
