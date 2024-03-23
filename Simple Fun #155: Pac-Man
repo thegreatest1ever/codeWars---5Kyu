@@ -1,0 +1,29 @@
+function pacMan(N, PM, enemies) {
+  // display the grid out (mark pacman's initial position and unsteppable coordinates)
+  let arr = Array.from({length: N}, (_, i) => Array.from({length: N}, (_, j) => 'O'))
+  arr[PM[0]][PM[1]] = 'P'
+  for(let [x, y] of enemies) {
+    arr[x][y] = 'E'
+    for(let [x1, y1] of [[-1, 0], [1, 0], [0, -1], [0, 1]]){
+      let r = x + x1, c = y + y1
+      while(r >= 0 && r < N && c >= 0 && c < N){
+        arr[r][c] = 'E'
+        r += x1, c += y1
+      }
+    }
+  }
+  // perform BFS
+  let queue = [PM], ans = 0
+  while(queue.length){
+    let [x, y] = queue.pop()
+    for(let [x1, y1] of [[-1, 0], [1, 0], [0, -1], [0, 1]]){
+      let r = x + x1, c = y + y1
+      if(r >= 0 && r < N && c >= 0 && c < N && arr[r][c] == 'O'){
+        arr[r][c] = '~' // marked as visited
+        queue.push([r, c])
+        ans++
+      }
+    }
+  }
+  return ans 
+}
